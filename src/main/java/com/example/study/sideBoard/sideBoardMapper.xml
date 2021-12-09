@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="com.example.study.sideBoard.sideBoardMapper">
+ 
+    <select id="side_boardCount" resultType="int">
+        SELECT
+            COUNT(b_no)
+        FROM side_board
+    </select>
+    
+    <select id="side_boardList" parameterType="com.example.study.sideBoard.sideBoardVo" resultType="com.example.study.sideBoard.sideBoardVo" >
+       SELECT 
+            b_content
+       FROM side_board
+       ORDER BY b_parent and b_no;
+    </select>
+    
+  <!-- 기본형 --> 
+    <insert id="newSide_board">
+    insert into side_board(b_parent, b_depth, b_order, b_content)
+                values(#{b_no},1,1,#{b_content})
+    </insert>
+    
+    
+    <insert id = "parentChild_board">
+    insert into side_board(b_parent, b_depth, b_order, b_content)
+                values(#{b_parent}, #{b_depth} + 1, #{b_order}, #{b_content})
+    </insert>
+    
+    
+    <update id="side_boardUpdate" parameterType="com.example.study.sideBoard.sideBoardVo">
+
+		update side_board
+
+		set b_parent = #{b_parent}, b_depth = #{b_depth}, b_order = #{b_order}
+
+		where b_no = #{b_no}
+
+	</update>
+</mapper>
