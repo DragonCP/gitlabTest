@@ -25,4 +25,5 @@ public class StudytestApplication {
         return sessionFactory.getObject();
         
     }
+	//test
 }
